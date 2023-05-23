@@ -58,6 +58,7 @@ import { User } from "../../Definitions/entities/User";
 import { plainToClass } from "class-transformer";
 import { Action } from "../../Definitions/enums/action.enum";
 import UserActionConfirmationModel from "../Common/Models/UserActionConfirmationModel";
+import { userManagementColumns } from "../../Definitions/enums/user.management.columns.enum";
 
 const { Search } = Input;
 
@@ -268,7 +269,7 @@ export const UserManagementComponent = (props: any) => {
     {
       title: "",
       dataIndex: "logo",
-      key: "logo",
+      key: userManagementColumns.logo,
       width: "20px",
       align: "left" as const,
       render: (item: any, itemObj: any) => {
@@ -287,7 +288,7 @@ export const UserManagementComponent = (props: any) => {
     {
       title: t("user:name"),
       dataIndex: "name",
-      key: "name",
+      key: userManagementColumns.name,
       sorter: true,
       align: "left" as const,
       render: (item: any, itemObj: any) => {
@@ -301,14 +302,14 @@ export const UserManagementComponent = (props: any) => {
     {
       title: t("user:email"),
       dataIndex: "email",
-      key: "email",
+      key: userManagementColumns.email,
       sorter: true,
       align: "left" as const,
     },
     {
       title: t("user:phone"),
       dataIndex: "phoneNo",
-      key: "phoneNo",
+      key: userManagementColumns.phoneNo,
       align: "left" as const,
       render: (item: any, itemObj: UserTableDataType) => {
         return item ? item : "-";
@@ -317,7 +318,7 @@ export const UserManagementComponent = (props: any) => {
     {
       title: t("user:company"),
       dataIndex: "company",
-      key: "company",
+      key: userManagementColumns.company,
       render: (item: any, itemObj: UserTableDataType) => {
         return itemObj?.company?.name ? itemObj?.company?.name : "-";
       },
@@ -326,7 +327,7 @@ export const UserManagementComponent = (props: any) => {
     {
       title: t("user:companyRole"),
       dataIndex: "companyRole",
-      key: "companyRole",
+      key: userManagementColumns.companyRole,
       sorter: true,
       align: "left" as const,
       render: (item: any, itemObj: UserTableDataType) => {
@@ -336,7 +337,7 @@ export const UserManagementComponent = (props: any) => {
     {
       title: t("user:role"),
       dataIndex: "role",
-      key: "role",
+      key: userManagementColumns.role,
       sorter: true,
       align: "left" as const,
       render: (item: any, itemObj: UserTableDataType) => {
@@ -541,7 +542,10 @@ export const UserManagementComponent = (props: any) => {
     sortOrder,
   ]);
 
-  const onChange: PaginationProps["onChange"] = (page: any, size: any) => {
+  const onChange: PaginationProps["onChange"] = (
+    page: number,
+    size: number
+  ) => {
     setCurrentPage(page);
     setPageSize(size);
   };
