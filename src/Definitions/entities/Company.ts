@@ -1,4 +1,4 @@
-import { BaseEntity } from './baseEntity';
+import { BaseEntity } from "./BaseEntity";
 
 export class Company implements BaseEntity {
   companyId?: number;
