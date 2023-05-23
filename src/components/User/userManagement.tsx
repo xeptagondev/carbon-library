@@ -60,7 +60,6 @@ import { Action } from "../../Definitions/enums/action.enum";
 import UserActionConfirmationModel from "../Common/Models/UserActionConfirmationModel";
 
 const { Search } = Input;
-const { Option } = Select;
 
 export const UserManagementComponent = (props: any) => {
   const {
@@ -77,7 +76,7 @@ export const UserManagementComponent = (props: any) => {
   const [totalUser, setTotalUser] = useState<number>();
   const [loading, setLoading] = useState<boolean>(false);
   const [tableData, setTableData] = useState<UserTableDataType[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<any>(1);
   const [pageSize, setPageSize] = useState<number>(10);
   const [searchByTermUser, setSearchByTermUser] = useState<any>("name");
   const [searchValueUsers, setSearchValueUsers] = useState<string>("");
@@ -368,7 +367,6 @@ export const UserManagementComponent = (props: any) => {
       },
     },
   ].filter((column: any) => visibleColumns.includes(column.key));
-  // }
 
   const filterOr = () => {
     if (
@@ -543,7 +541,7 @@ export const UserManagementComponent = (props: any) => {
     sortOrder,
   ]);
 
-  const onChange: PaginationProps["onChange"] = (page, size) => {
+  const onChange: PaginationProps["onChange"] = (page: any, size: any) => {
     setCurrentPage(page);
     setPageSize(size);
   };

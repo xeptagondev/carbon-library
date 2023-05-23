@@ -314,7 +314,10 @@ export const CompanyManagementComponent = (props: any) => {
     sortOrder,
   ]);
 
-  const onChange: PaginationProps["onChange"] = (page, size) => {
+  const onChange: PaginationProps["onChange"] = (
+    page: number,
+    size: number
+  ) => {
     setCurrentPage(page);
     setPageSize(size);
   };
