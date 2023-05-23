@@ -62,7 +62,7 @@ import UserActionConfirmationModel from "../Common/Models/UserActionConfirmation
 const { Search } = Input;
 const { Option } = Select;
 
-const UserManagement = (props: any) => {
+export const UserManagementComponent = (props: any) => {
   const {
     t,
     AbilityContext,
@@ -760,5 +760,3 @@ const UserManagement = (props: any) => {
     </div>
   );
 };
-
-export default UserManagement;
