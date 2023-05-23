@@ -1,4 +1,4 @@
-export enum userManagementColumns {
+export enum UserManagementColumns {
   logo,
   name,
   email,
@@ -6,4 +6,5 @@ export enum userManagementColumns {
   company,
   companyRole,
   role,
+  actions,
 }

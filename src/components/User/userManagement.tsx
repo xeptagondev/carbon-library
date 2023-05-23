@@ -54,11 +54,11 @@ import {
   ViewColor,
 } from "../../Styles/role.color.constants";
 import ProfileIcon from "../Common/ProfileIcon/profile.icon";
-import { User } from "../../Definitions/entities/User";
+import { User } from "../../Definitions/Entities/user";
 import { plainToClass } from "class-transformer";
-import { Action } from "../../Definitions/enums/action.enum";
-import UserActionConfirmationModel from "../Common/Models/UserActionConfirmationModel";
-import { userManagementColumns } from "../../Definitions/enums/user.management.columns.enum";
+import { Action } from "../../Definitions/Enums/action.enum";
+import UserActionConfirmationModel from "../Common/Models/userActionConfirmationModel";
+import { UserManagementColumns } from "../../Definitions/Enums/user.management.columns.enum";
 
 const { Search } = Input;
 
@@ -269,7 +269,7 @@ export const UserManagementComponent = (props: any) => {
     {
       title: "",
       dataIndex: "logo",
-      key: userManagementColumns.logo,
+      key: UserManagementColumns.logo,
       width: "20px",
       align: "left" as const,
       render: (item: any, itemObj: any) => {
@@ -288,7 +288,7 @@ export const UserManagementComponent = (props: any) => {
     {
       title: t("user:name"),
       dataIndex: "name",
-      key: userManagementColumns.name,
+      key: UserManagementColumns.name,
       sorter: true,
       align: "left" as const,
       render: (item: any, itemObj: any) => {
@@ -302,14 +302,14 @@ export const UserManagementComponent = (props: any) => {
     {
       title: t("user:email"),
       dataIndex: "email",
-      key: userManagementColumns.email,
+      key: UserManagementColumns.email,
       sorter: true,
       align: "left" as const,
     },
     {
       title: t("user:phone"),
       dataIndex: "phoneNo",
-      key: userManagementColumns.phoneNo,
+      key: UserManagementColumns.phoneNo,
       align: "left" as const,
       render: (item: any, itemObj: UserTableDataType) => {
         return item ? item : "-";
@@ -318,7 +318,7 @@ export const UserManagementComponent = (props: any) => {
     {
       title: t("user:company"),
       dataIndex: "company",
-      key: userManagementColumns.company,
+      key: UserManagementColumns.company,
       render: (item: any, itemObj: UserTableDataType) => {
         return itemObj?.company?.name ? itemObj?.company?.name : "-";
       },
@@ -327,7 +327,7 @@ export const UserManagementComponent = (props: any) => {
     {
       title: t("user:companyRole"),
       dataIndex: "companyRole",
-      key: userManagementColumns.companyRole,
+      key: UserManagementColumns.companyRole,
       sorter: true,
       align: "left" as const,
       render: (item: any, itemObj: UserTableDataType) => {
@@ -337,7 +337,7 @@ export const UserManagementComponent = (props: any) => {
     {
       title: t("user:role"),
       dataIndex: "role",
-      key: userManagementColumns.role,
+      key: UserManagementColumns.role,
       sorter: true,
       align: "left" as const,
       render: (item: any, itemObj: UserTableDataType) => {
@@ -346,6 +346,7 @@ export const UserManagementComponent = (props: any) => {
     },
     {
       title: "",
+      key: UserManagementColumns.actions,
       width: 6,
       align: "right" as const,
       render: (_: any, record: UserTableDataType) => {

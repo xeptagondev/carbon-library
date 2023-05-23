@@ -1,8 +1,8 @@
-export enum companyManagementColumns {
-    logo,
-    name,
-    taxId,
-    companyRole,
-    programmeCount,
-    creditBalance
+export enum CompanyManagementColumns {
+  logo,
+  name,
+  taxId,
+  companyRole,
+  programmeCount,
+  creditBalance,
 }

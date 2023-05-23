@@ -35,9 +35,9 @@ import {
 import ProfileIcon from "../Common/ProfileIcon/profile.icon";
 import { addCommSep } from "../../Definitions/Definitions/programme.definitions";
 import { CompanyTableDataType } from "../../Definitions/Definitions/companyManagement.definitions";
-import { Action } from "../../Definitions/enums/action.enum";
-import { Company } from "../../Definitions/entities/Company";
-import { companyManagementColumns } from "../../Definitions/enums/company.management.columns.enum";
+import { Action } from "../../Definitions/Enums/action.enum";
+import { Company } from "../../Definitions/Entities/company";
+import { companyManagementColumns } from "../../Definitions/Enums/company.management.columns.enum";
 
 const { Search } = Input;
 
@@ -314,10 +314,7 @@ export const CompanyManagementComponent = (props: any) => {
     sortOrder,
   ]);
 
-  const onChange: PaginationProps["onChange"] = (
-    page: number,
-    size: number
-  ) => {
+  const onChange: PaginationProps["onChange"] = (page, size) => {
     setCurrentPage(page);
     setPageSize(size);
   };
