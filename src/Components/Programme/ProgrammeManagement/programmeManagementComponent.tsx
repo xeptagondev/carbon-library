@@ -31,6 +31,7 @@ import { ProgrammeManagementColumns } from "../../../Definitions/Enums/programme
 import { User } from "../../../Definitions/Entities/user";
 import { Action } from "../../../Definitions/Enums/action.enum";
 import { PlusOutlined } from "@ant-design/icons";
+import { Programme } from "../../../Definitions/Entities/Programme";
 
 const { Search } = Input;
 
@@ -42,6 +43,7 @@ export const ProgrammeManagementComponent = (props: any) => {
     useConnection,
     onNavigateToProgrammeView,
     onClickAddProgramme,
+    useAbilityContext,
   } = props;
   const { get, delete: del, post } = useConnection();
   const [totalProgramme, setTotalProgramme] = useState<number>();
@@ -56,6 +58,7 @@ export const ProgrammeManagementComponent = (props: any) => {
   const [sortOrder, setSortOrder] = useState<string>();
   const [sortField, setSortField] = useState<string>();
   const { userInfoState } = useUserContext();
+  const ability = useAbilityContext();
 
   const statusOptions = Object.keys(ProgrammeStage).map((k, index) => ({
     label: Object.values(ProgrammeStage)[index],
@@ -373,15 +376,17 @@ export const ProgrammeManagementComponent = (props: any) => {
         </div>
         <div className="actions">
           <div className="action-bar">
-            <Button
-              type="primary"
-              size="large"
-              block
-              icon={<PlusOutlined />}
-              onClick={onClickAddProgramme}
-            >
-              {t("programme:addProgramme")}
-            </Button>
+            {ability.can(Action.Create, Programme) && (
+              <Button
+                type="primary"
+                size="large"
+                block
+                icon={<PlusOutlined />}
+                onClick={onClickAddProgramme}
+              >
+                {t("programme:addProgramme")}
+              </Button>
+            )}
           </div>
         </div>
       </div>
