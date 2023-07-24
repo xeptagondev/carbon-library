@@ -108,7 +108,7 @@ export const MapboxComponent = (props: MapComponentProps) => {
           .addTo(map);
       });
     }
-  });
+  }, []);
 
   return (
     <div
