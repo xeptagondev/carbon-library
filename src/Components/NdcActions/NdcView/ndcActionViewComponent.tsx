@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 import * as Icon from "react-bootstrap-icons";
 import Chart from "react-apexcharts";
+import { ApexOptions } from "apexcharts";
 import { NdcAction } from "../../../Definitions/Definitions/ndcAction.definitions";
 import {
   DocType,
@@ -370,6 +371,80 @@ export const NdcActionViewComponent = (props: any) => {
     return parts.join("");
   };
 
+  const chartOptions: ApexOptions = {
+    labels: ["Achieved", "Pending"],
+    legend: {
+      position: "bottom",
+    },
+    colors: ["#b3b3ff", "#e0e0eb"],
+    tooltip: {
+      fillSeriesColor: false,
+      enabled: true,
+      y: {
+        formatter: function (value: any) {
+          return addCommSepRound(value);
+        },
+      },
+    },
+    states: {
+      normal: {
+        filter: {
+          type: "none",
+          value: 0,
+        },
+      },
+      hover: {
+        filter: {
+          type: "none",
+          value: 0,
+        },
+      },
+      active: {
+        allowMultipleDataPointsSelection: true,
+        filter: {
+          type: "darken",
+          value: 0.7,
+        },
+      },
+    },
+    stroke: {
+      colors: ["#00"],
+    },
+    plotOptions: {
+      pie: {
+        expandOnClick: false,
+        donut: {
+          size: "75%",
+          labels: {
+            show: true,
+            total: {
+              showAlways: true,
+              show: true,
+              label: "Expected",
+              formatter: () => "" + addCommSep(emissionsReductionExpected),
+            },
+          },
+        },
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    responsive: [
+      {
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: "15vw",
+          },
+          legend: {
+            position: "bottom",
+          },
+        },
+      },
+    ],
+  };
+
   return (
     <div className="ndc-details-view content-container">
       <div className="title-bar">
@@ -399,80 +474,7 @@ export const NdcActionViewComponent = (props: any) => {
                     {/* @ts-ignore */}
                     <Chart
                       id={"creditChart"}
-                      options={{
-                        labels: ["Achieved", "Pending"],
-                        legend: {
-                          position: "bottom",
-                        },
-                        colors: ["#b3b3ff", "#e0e0eb"],
-                        tooltip: {
-                          fillSeriesColor: false,
-                          enabled: true,
-                          y: {
-                            formatter: function (value: any) {
-                              return addCommSepRound(value);
-                            },
-                          },
-                        },
-                        states: {
-                          normal: {
-                            filter: {
-                              type: "none",
-                              value: 0,
-                            },
-                          },
-                          hover: {
-                            filter: {
-                              type: "none",
-                              value: 0,
-                            },
-                          },
-                          active: {
-                            allowMultipleDataPointsSelection: true,
-                            filter: {
-                              type: "darken",
-                              value: 0.7,
-                            },
-                          },
-                        },
-                        stroke: {
-                          colors: ["#00"],
-                        },
-                        plotOptions: {
-                          pie: {
-                            expandOnClick: false,
-                            donut: {
-                              size: "75%",
-                              labels: {
-                                show: true,
-                                total: {
-                                  showAlways: true,
-                                  show: true,
-                                  label: "Expected",
-                                  formatter: () =>
-                                    "" + addCommSep(emissionsReductionExpected),
-                                },
-                              },
-                            },
-                          },
-                        },
-                        dataLabels: {
-                          enabled: false,
-                        },
-                        responsive: [
-                          {
-                            breakpoint: 480,
-                            options: {
-                              chart: {
-                                width: "15vw",
-                              },
-                              legend: {
-                                position: "bottom",
-                              },
-                            },
-                          },
-                        ],
-                      }}
+                      options={chartOptions}
                       series={[
                         emissionsReductionAchieved,
                         emissionsReductionExpected - emissionsReductionAchieved,
