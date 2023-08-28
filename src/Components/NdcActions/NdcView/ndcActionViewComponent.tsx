@@ -396,6 +396,7 @@ export const NdcActionViewComponent = (props: any) => {
                     </span>
                   </div>
                   <div className="map-content">
+                    {/* @ts-ignore */}
                     <Chart
                       id={"creditChart"}
                       options={{
