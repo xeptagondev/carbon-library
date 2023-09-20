@@ -365,9 +365,11 @@ export const AddNewCompanyComponent = (props: any) => {
                         </Form.Item>
                       )
                     : null}
-                  {(companyRole !== CompanyRole.MINISTRY ||
-                    companyRole !== CompanyRole.GOVERNMENT) ?
-                    (<Form.Item
+                 {companyRole !== CompanyRole.MINISTRY
+                    ? (!isUpdate ||
+                        (isUpdate &&
+                          companyRole !== CompanyRole.GOVERNMENT)) && (
+                    <Form.Item
                       label="Registration Payment ID"
                       initialValue={state?.record?.paymentId}
                       name="paymentId"
@@ -378,6 +380,7 @@ export const AddNewCompanyComponent = (props: any) => {
                         },
                         {
                           validator: async (rule, value) => {
+                            console.log('payment id : ', companyRole);
                             if (
                               String(value).trim() === "" ||
                               String(value).trim() === undefined ||
