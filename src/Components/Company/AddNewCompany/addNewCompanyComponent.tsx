@@ -380,7 +380,6 @@ export const AddNewCompanyComponent = (props: any) => {
                         },
                         {
                           validator: async (rule, value) => {
-                            console.log('payment id : ', companyRole);
                             if (
                               String(value).trim() === "" ||
                               String(value).trim() === undefined ||
