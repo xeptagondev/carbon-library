@@ -134,6 +134,7 @@ export class UserService {
     return {
       user: userProfileDetails,
       Organisation: organisationDetails,
+      "testing": "1"
     };
   }
 
