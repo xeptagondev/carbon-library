@@ -232,6 +232,7 @@ export const CompanyProfileComponent = (props: any) => {
     setOpenReactivateModal(true);
   };
 
+  // approve pending organisations
   const onApproveOrganisation = () => {
     setActionInfo({
       action: `${t("companyProfile:approve")}`,
