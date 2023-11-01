@@ -672,7 +672,7 @@ export const InvestmentCreationComponent = (props: any) => {
                         </Row>
 
                         <Form.Item>
-                          <div className="steps-actions">
+                          <div className="steps-actions-investment">
                             <Button
                               type="primary"
                               htmlType="submit"
@@ -816,7 +816,7 @@ export const InvestmentCreationComponent = (props: any) => {
                               </Col>
                             </Row>
                             <Form.Item>
-                              <div className="steps-actions">
+                              <div className="steps-actions-investment">
                                 <Button
                                   type="primary"
                                   htmlType="submit"

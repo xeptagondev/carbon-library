@@ -603,7 +603,7 @@ export const SupportCreationComponent = (props: any) => {
                         </Row>
 
                         <Form.Item>
-                          <div className="steps-actions">
+                          <div className="steps-actions-support">
                             <Button
                               type="primary"
                               htmlType="submit"
@@ -746,7 +746,7 @@ export const SupportCreationComponent = (props: any) => {
                             </Col>
                           </Row>
                           <Form.Item>
-                            <div className="steps-actions">
+                            <div className="steps-actions-support">
                               <Button
                                 type="primary"
                                 htmlType="submit"
