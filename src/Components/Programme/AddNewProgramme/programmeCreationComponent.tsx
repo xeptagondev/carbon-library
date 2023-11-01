@@ -1379,7 +1379,7 @@ export const ProgrammeCreationComponent = (props: any) => {
                             </Row>
                           </Col>
                         </Row>
-                        <div className="steps-actions">
+                        <div className="steps-actions-programme">
                           <Button
                             type="primary"
                             htmlType="submit"
@@ -1523,7 +1523,7 @@ export const ProgrammeCreationComponent = (props: any) => {
                             </div>
                           </Col>
                         </Row>
-                        <div className="steps-actions">
+                        <div className="steps-actions-programme">
                           <Button
                             type="primary"
                             htmlType="submit"

@@ -26,10 +26,11 @@
     .ant-upload-list-item-name {
       color: $primary-color;
     }
-    .steps-actions {
+
+    .steps-actions-programme {
       display: flex;
       flex-direction: row-reverse;
-      margin-right: 1rem;
+      justify-content: flex-start;
 
       .action-btn {
         border: 1px solid $primary-color;
