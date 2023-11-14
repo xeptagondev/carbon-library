@@ -145,11 +145,7 @@ export const InvestmentCreationComponent = (props: any) => {
       onNavigateToProgrammeManagementView();
       return;
     }
-    if (state?.record) {
-      setData(state?.record);
-    } else {
-      setData({ ownership: true })
-    }
+    setData(state.record);
   }, []);
 
   useEffect(() => {
@@ -168,13 +164,11 @@ export const InvestmentCreationComponent = (props: any) => {
   console.log('data',data)
 
   const companyName: any = {};
-  if (data && Object.keys(data)[0] !== "ownership") {
-    for (const company of data!?.company) {
-      companyName[company?.companyId] = company;
-    }
-    if (!data!.proponentPercentage) {
-      data.proponentPercentage = [100];
-    }
+  for (const company of data!.company) {
+    companyName[company.companyId] = company;
+  }
+  if (!data!.proponentPercentage) {
+    data.proponentPercentage = [100];
   }
 
   const nextOne = (val: any) => {
