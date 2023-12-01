@@ -10,6 +10,7 @@ const SocialEnvironmentalRisk = (props: any) => {
   const [form] = Form.useForm();
   const [socialEnvironmentalFormDetails, setSocialEnvironmentalFormDetails] =
     useState();
+    
   const [socialEnvironmentalDetails, setSocialEnvironmentalDetails] = useState([
     {
       title: t("humanRightsSubHeader"),
