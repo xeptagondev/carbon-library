@@ -1,4 +1,4 @@
-import { Empty, Form, Radio } from "antd";
+import { Col, Empty, Form, Radio, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import { RadioButtonStatus } from "../../../Definitions";
 
@@ -434,10 +434,16 @@ const SocialEnvironmentalRisk = (props: any) => {
             socialEnvironmentalDetails.map((section: any) => {
               return (
                 <>
-                  <div style={{ marginBottom: "15px" }}>
-                    <label className="co-sub-header-text">
-                      {section.title}
-                    </label>
+                  <div className="social-environment-risk-title-section">
+                    <Row
+                      justify="center"
+                      align="middle"
+                      style={{ width: "100%" }}
+                    >
+                      <Col span={24} className="social-environment-risk-title">
+                        <span>{section.title}</span>
+                      </Col>
+                    </Row>
                   </div>
                   {section.subItems.map((subSection: any) => {
                     return (
@@ -487,10 +493,19 @@ const SocialEnvironmentalRisk = (props: any) => {
               return (
                 <>
                   {section.isTitleVisible && (
-                    <div style={{ marginBottom: "15px" }}>
-                      <label className="co-sub-header-text">
-                        {section.title}
-                      </label>
+                    <div className="social-environment-risk-title-section">
+                      <Row
+                        justify="center"
+                        align="middle"
+                        style={{ width: "100%" }}
+                      >
+                        <Col
+                          span={24}
+                          className="social-environment-risk-title"
+                        >
+                          <span>{section.title}</span>
+                        </Col>
+                      </Row>
                     </div>
                   )}
                   {section.subItems.map((subSection: any) => {
