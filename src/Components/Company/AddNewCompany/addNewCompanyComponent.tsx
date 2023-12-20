@@ -170,7 +170,7 @@ const sectoralScopes: any = {
     "Broadcasting Organisation",
     "News Agency",
     "Press Council",
-    "Television Authority",
+    "Television Authority Media",
   ],
   ScienceAndTechnology: [
     "Agency For Science and Engineering Infrastructure",
@@ -179,7 +179,7 @@ const sectoralScopes: any = {
     "Science and Technology Complex",
     "Office for Technology Acquisition and Promotion",
     "Space Research and Development Agency",
-    "Nuclear Regulatory Authority",
+    "Nuclear Regulatory Authority Science & Technology",
     "Raw Materials Research and Development Council",
     "Communications Satellite Ltd",
     "Centre for Technology Management",
