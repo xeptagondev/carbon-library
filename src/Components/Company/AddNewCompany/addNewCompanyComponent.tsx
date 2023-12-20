@@ -277,7 +277,7 @@ export const AddNewCompanyComponent = (props: any) => {
     setSelectedMinistry(String(key));
     const response: any = await post("national/organisation/query", {
       page: 1,
-      size: 10,
+      size: 200,
       filterAnd: [
         {
           key: "companyRole",
