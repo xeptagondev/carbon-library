@@ -19,7 +19,10 @@ import {
 } from "../../../Definitions";
 import { RejectDocumentationConfirmationModel } from "../Models/rejectDocumenConfirmationModel";
 import { isValidateFileType } from "../../../Utils/DocumentValidator";
-import { linkDocVisible, uploadDocUserPermission } from "../../../Utils/documentsPermission";
+import {
+  linkDocVisible,
+  uploadDocUserPermission,
+} from "../../../Utils/documentsPermission";
 
 export interface NdcActionBodyProps {
   data?: any;
@@ -32,6 +35,8 @@ export interface NdcActionBodyProps {
   useConnection: any;
   translator: any;
   useUserContext: any;
+  onFinish?: any;
+  programme?: any;
 }
 
 export const NdcActionBody: FC<NdcActionBodyProps> = (
@@ -47,6 +52,8 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
     useConnection,
     translator,
     useUserContext,
+    onFinish,
+    programme,
   } = props;
   const t = translator.t;
   const { userInfoState } = useUserContext();
@@ -113,6 +120,37 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
             duration: 4,
             style: { textAlign: "right", marginRight: 15, marginTop: 10 },
           });
+          if (
+            type == DocType.VERIFICATION_REPORT &&
+            response?.data.status == DocumentStatus.ACCEPTED &&
+            response.data.programme.mitigationActions
+          ) {
+            let programmeData = response?.data.programme;
+            let modified = false;
+            programmeData.mitigationActions.map((action: any) => {
+              if (action.actionId == ndcActionId) {
+                modified = true;
+                let docAdded = false;
+                for (var documentDetails of action.projectMaterial) {
+                  let document: any;
+                  documentDetails.url
+                    ? (document = documentDetails.url)
+                    : (document = documentDetails);
+                  if (document.includes("VERIFICATION_REPORT")) {
+                    docAdded = true;
+                    break;
+                  }
+                }
+                if (!docAdded) {
+                  action.projectMaterial.push(response?.data.url);
+                }
+              }
+            });
+            if (modified) {
+              programme.mitigationActions = programmeData.mitigationActions;
+              onFinish(programme);
+            }
+          }
         }
       } else {
         message.open({
@@ -159,6 +197,49 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
         duration: 4,
         style: { textAlign: "right", marginRight: 15, marginTop: 10 },
       });
+      if (
+        type == DocType.VERIFICATION_REPORT &&
+        status == DocumentStatus.ACCEPTED
+      ) {
+        let programmeRes = await post("national/programme/query", {
+          page: 1,
+          size: 2,
+          filterAnd: [
+            {
+              key: "programmeId",
+              operation: "=",
+              value: programmeId,
+            },
+          ],
+        });
+        let programmeData = programmeRes.data[0];
+
+        if (programmeData.mitigationActions) {
+          const docRepoRes: any = await post("national/programme/queryDocs", {
+            page: 1,
+            size: 100,
+            filterAnd: [
+              {
+                key: "id",
+                operation: "=",
+                value: id,
+              },
+            ],
+          });
+          const docUrl = docRepoRes.data[0].url;
+
+          let modified = false;
+          programmeData.mitigationActions.map((action: any) => {
+            if (action.actionId == actionId) {
+              modified = true;
+              if (!action.projectMaterial.includes(docUrl)) {
+                action.projectMaterial.push(docUrl);
+              }
+            }
+          });
+          if (modified) onFinish(programmeData);
+        }
+      }
     } catch (error: any) {
       message.open({
         type: "error",
@@ -266,7 +347,7 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
                           )
                         }
                         className="common-progress-icon"
-                        style={{ color: "#976ED7" }}
+                        style={{ color: "#976ED7", paddingTop: '3px' }}
                       />
                       <DislikeOutlined
                         onClick={() => {
@@ -285,14 +366,14 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
                           setOpenRejectDocConfirmationModal(true);
                         }}
                         className="common-progress-icon margin-left-1"
-                        style={{ color: "#FD6F70" }}
+                        style={{ color: "#FD6F70", paddingTop: '3px' }}
                       />
                     </>
                   )
                 ) : monitoringReportAccepted ? (
                   <CheckCircleOutlined
                     className="common-progress-icon"
-                    style={{ color: "#5DC380" }}
+                    style={{ color: "#5DC380", paddingTop: '3px' }}
                   />
                 ) : (
                   monitoringReportRejected && (
@@ -305,7 +386,7 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
                     >
                       <ExclamationCircleOutlined
                         className="common-progress-icon"
-                        style={{ color: "#FD6F70" }}
+                        style={{ color: "#FD6F70", paddingTop: '3px' }}
                       />
                     </Tooltip>
                   )
@@ -341,8 +422,16 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
                           programmeOwnerId,
                           ministryLevelPermission
                         )
-                          ? { color: "#3F3A47", cursor: "pointer" }
-                          : { color: "#cacaca", cursor: "default" }
+                          ? {
+                              color: "#3F3A47",
+                              cursor: "pointer",
+                              margin: "0px 0px 2.5px 0px",
+                            }
+                          : {
+                              color: "#cacaca",
+                              cursor: "default",
+                              margin: "0px 0px 2.5px 0px",
+                            }
                       }
                       onClick={() => {
                         if (
@@ -387,7 +476,7 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
                   >
                     <BookOutlined
                       className="common-progress-icon margin-right-1"
-                      style={{ color: "#3F3A47" }}
+                      style={{ color: "#3F3A47", paddingTop: '3px' }}
                     />
                   </a>
                 )}
@@ -423,8 +512,16 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
                           programmeOwnerId,
                           ministryLevelPermission
                         )
-                          ? { color: "#3F3A47", cursor: "pointer" }
-                          : { color: "#cacaca", cursor: "default" }
+                          ? {
+                              color: "#3F3A47",
+                              cursor: "pointer",
+                              margin: "0px 0px 2.5px 0px",
+                            }
+                          : {
+                              color: "#cacaca",
+                              cursor: "default",
+                              margin: "0px 0px 2.5px 0px",
+                            }
                       }
                       onClick={() => {
                         if (
@@ -494,7 +591,7 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
                           )
                         }
                         className="common-progress-icon"
-                        style={{ color: "#976ED7" }}
+                        style={{ color: "#976ED7", paddingTop: '3px' }}
                       />
                       <DislikeOutlined
                         onClick={() => {
@@ -513,14 +610,14 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
                           setOpenRejectDocConfirmationModal(true);
                         }}
                         className="common-progress-icon margin-left-1"
-                        style={{ color: "#FD6F70" }}
+                        style={{ color: "#FD6F70", paddingTop: '3px' }}
                       />
                     </>
                   )
                 ) : verificationReportAccepted ? (
                   <CheckCircleOutlined
                     className="common-progress-icon"
-                    style={{ color: "#5DC380" }}
+                    style={{ color: "#5DC380", paddingTop: '3px' }}
                   />
                 ) : (
                   verifcationReportRejected && (
@@ -533,7 +630,7 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
                     >
                       <ExclamationCircleOutlined
                         className="common-progress-icon"
-                        style={{ color: "#FD6F70" }}
+                        style={{ color: "#FD6F70", paddingTop: '3px' }}
                       />
                     </Tooltip>
                   )
@@ -569,8 +666,16 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
                           programmeOwnerId,
                           ministryLevelPermission
                         )
-                          ? { color: "#3F3A47", cursor: "pointer" }
-                          : { color: "#cacaca", cursor: "default" }
+                          ? {
+                              color: "#3F3A47",
+                              cursor: "pointer",
+                              margin: "0px 0px 2.5px 0px",
+                            }
+                          : {
+                              color: "#cacaca",
+                              cursor: "default",
+                              margin: "0px 0px 2.5px 0px",
+                            }
                       }
                       onClick={() => {
                         if (
@@ -620,7 +725,7 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
                   >
                     <BookOutlined
                       className="common-progress-icon margin-right-1"
-                      style={{ color: "#3F3A47" }}
+                      style={{ color: "#3F3A47", paddingTop: '3px' }}
                     />
                   </a>
                 )}
@@ -656,8 +761,16 @@ export const NdcActionBody: FC<NdcActionBodyProps> = (
                           programmeOwnerId,
                           ministryLevelPermission
                         )
-                          ? { color: "#3F3A47", cursor: "pointer" }
-                          : { color: "#cacaca", cursor: "default" }
+                          ? {
+                              color: "#3F3A47",
+                              cursor: "pointer",
+                              margin: "0px 0px 2.5px 0px",
+                            }
+                          : {
+                              color: "#cacaca",
+                              cursor: "default",
+                              margin: "0px 0px 2.5px 0px",
+                            }
                       }
                       onClick={() => {
                         if (
