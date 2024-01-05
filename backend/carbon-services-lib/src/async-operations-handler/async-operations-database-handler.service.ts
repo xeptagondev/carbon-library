@@ -6,6 +6,8 @@ import { AsyncOperationsHandlerService } from "./async-operations-handler.servic
 import { AsyncActionEntity } from "../shared/entities/async.action.entity";
 import { CounterType } from "../shared/util/counter.type.enum";
 import { Counter } from "../shared/entities/counter.entity";
+import { SchedulerRegistry } from '@nestjs/schedule';
+import { CronJob } from 'cron';
 
 @Injectable()
 export class AsyncOperationsDatabaseHandlerService
@@ -16,7 +18,8 @@ export class AsyncOperationsDatabaseHandlerService
     @InjectRepository(Counter) private counterRepo: Repository<Counter>,
     @InjectRepository(AsyncActionEntity)
     private asyncActionRepo: Repository<AsyncActionEntity>,
-    private asyncOperationsHandlerService: AsyncOperationsHandlerService
+    private asyncOperationsHandlerService: AsyncOperationsHandlerService,
+    private schedulerRegistry: SchedulerRegistry
   ) {}
 
   async asyncHandler(event: any): Promise<any> {
@@ -31,7 +34,10 @@ export class AsyncOperationsDatabaseHandlerService
     }
     let retryCount = 0;
     const retryLimit = 10;
-    const intervalId = setInterval(async () => {
+    const job_name = "async_handler";
+
+    const job = new CronJob(`*/5 * * * * *`, async () => {
+    
       const notExecutedActions = await this.asyncActionRepo
         .createQueryBuilder("asyncAction")
         .where("asyncAction.actionId > :lastExecuted", {
@@ -65,12 +71,16 @@ export class AsyncOperationsDatabaseHandlerService
         this.logger.log("database asyncHandler failed", exception);
         if(retryCount>retryLimit){
           this.logger.log("database asyncHandler terminated")
-          clearInterval(intervalId)
+          this.schedulerRegistry.deleteCronJob(job_name);
         }
         else {
           retryCount+=1
         }
       }
-    }, 5000);
+    })
+
+    this.schedulerRegistry.addCronJob(job_name, job);
+    job.start();
+
   }
 }

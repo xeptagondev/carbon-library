@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ServiceLibService } from './service.lib.service';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-  imports: [],
+  imports: [ScheduleModule.forRoot()],
   controllers: [],
   providers: [ServiceLibService],
 })
