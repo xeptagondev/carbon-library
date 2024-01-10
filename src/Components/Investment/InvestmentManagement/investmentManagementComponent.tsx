@@ -734,24 +734,24 @@ export const InvestmentManagementComponent = (props: any) => {
       <div className="investment-title-bar">
         <div className="title-bar">
           <div className="body-title">{t("programme:investmentTitle")}</div>
-          <div className="body-sub-title">{t("programme:investmentDesc")}</div>
+          <div className="body-sub-title">
+            {t("programme:investmentDesc")}
+          </div>
         </div>
         <div className="actions">
-          {userInfoState?.userRole !== Role.ViewOnly &&
-            userInfoState?.companyRole !== CompanyRole.CERTIFIER &&
-            enableAddOwnership && (
-              <div className="action-bar">
-                <Button
-                  type="primary"
-                  size="large"
-                  block
-                  icon={<PlusOutlined />}
-                  onClick={onClickAddOwnership}
-                >
-                  {t("programme:addOwnership")}
-                </Button>
-              </div>
-            )}
+          {enableAddOwnership && (
+            <div className="action-bar">
+              <Button
+                type="primary"
+                size="large"
+                block
+                icon={<PlusOutlined />}
+                onClick={onClickAddOwnership}
+              >
+                {t("programme:addOwnership")}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
       <div className="content-card">
