@@ -60,5 +60,9 @@ export const uploadDocUserPermission = (
       permission = true;
     }
   }
+
+  if (userInfoState?.companyState == 0) {
+    permission = false
+  }
   return permission;
 };

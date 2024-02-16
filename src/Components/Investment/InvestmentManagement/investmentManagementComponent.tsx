@@ -370,7 +370,8 @@ export const InvestmentManagementComponent = (props: any) => {
     }
     if (
       record.status === "Pending" &&
-      userInfoState?.userRole !== Role.ViewOnly
+      userInfoState?.userRole !== Role.ViewOnly &&
+      userInfoState?.companyState !== 0
     ) {
       return userInfoState?.companyId === record.initiatorCompanyId ? (
         <List
@@ -752,7 +753,8 @@ export const InvestmentManagementComponent = (props: any) => {
             (userInfoState?.companyRole == CompanyRole.MINISTRY ||
               userInfoState?.companyRole == CompanyRole.GOVERNMENT ||
               userInfoState?.companyRole == CompanyRole.PROGRAMME_DEVELOPER) &&
-            userInfoState.userRole != Role.ViewOnly && (
+            userInfoState.userRole != Role.ViewOnly && 
+            userInfoState.companyState != 0 && (
               <div className="action-bar">
                 <Button
                   type="primary"
