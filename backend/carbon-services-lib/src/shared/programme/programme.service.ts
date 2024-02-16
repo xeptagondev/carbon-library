@@ -6036,6 +6036,13 @@ export class ProgrammeService {
         });
     }
 
+    if (!(query.extendedProperties?.isGetInvestmentHistory) && user.companyRole === CompanyRole.PROGRAMME_DEVELOPER) {
+      queryBuilder = queryBuilder
+        .andWhere('(investment.fromCompanyId = :developerCompanyId OR investment.toCompanyId = :developerCompanyId)', {
+          developerCompanyId: user.companyId
+        });
+    }
+
     const resp = await queryBuilder
       .orderBy(
         query?.sort?.key &&
@@ -6058,7 +6065,8 @@ export class ProgrammeService {
 
   async downloadInvestments(
     queryData: DataExportQueryDto,
-    abilityCondition: string
+    abilityCondition: string,
+    user: User
   ) {
 
     const queryDto = new QueryDto();
@@ -6088,6 +6096,13 @@ export class ProgrammeService {
       )
         .andWhere("programme.sectoralScope IN (:...allowedScopes)", {
           allowedScopes: queryDto.filterBy.value
+        });
+    }
+
+    if (user.companyRole === CompanyRole.PROGRAMME_DEVELOPER) {
+      queryBuilder = queryBuilder
+        .andWhere('(investment.fromCompanyId = :developerCompanyId OR investment.toCompanyId = :developerCompanyId)', {
+          developerCompanyId: user.companyId
         });
     }
 
