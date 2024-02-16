@@ -749,7 +749,7 @@ export class ProgrammeService {
       allInvestmentList.push(investment);
     }
     const results = await this.investmentRepo.insert(allInvestmentList);
-    console.log(results);
+    // console.log(results);
     for (const i in allInvestmentList) {
       allInvestmentList[i].requestId = results.identifiers[i].requestId;
     }
@@ -1246,21 +1246,20 @@ export class ProgrammeService {
     let ndc: NDCAction;
 
     let program;
-    let cid;
+    let cid = undefined;
     let documentCreatedUser;
     if (d.remark) {
       documentCreatedUser = await this.userService.findById(Number(d.remark));
       if (documentCreatedUser) {
-        cid =
-          documentCreatedUser.companyRole === CompanyRole.CERTIFIER
-            ? Number(documentCreatedUser.companyId)
-            : undefined;
-        if (cid) {
-          const company = await this.companyRepo.findOne({
-            where: { companyId: documentCreatedUser.companyId },
-          });
-          if (company) {
-            documentCreatedUser.companyName = company.name;
+        if (documentCreatedUser.companyRole === CompanyRole.CERTIFIER) {
+          if (documentCreatedUser.companyId) {
+            const company = await this.companyRepo.findOne({
+              where: { companyId: documentCreatedUser.companyId },
+            });
+            if (company && company.state != CompanyState.SUSPENDED) {
+              cid = Number(documentCreatedUser.companyId)
+              documentCreatedUser.companyName = company.name;
+            }
           }
         }
       }
@@ -3174,7 +3173,7 @@ export class ProgrammeService {
 
     if (resp && resp.length > 0) {
       for (const e of resp[0]) {
-        console.log(e);
+        // console.log(e);
         e.certifier =
           e.certifier.length > 0 && e.certifier[0] === null ? [] : e.certifier;
         if (
@@ -4177,7 +4176,7 @@ export class ProgrammeService {
       allTransferList.push(transfer);
     }
     const results = await this.programmeTransferRepo.insert(allTransferList);
-    console.log(results);
+    // console.log(results);
     for (const i in allTransferList) {
       allTransferList[i].requestId = results.identifiers[i].requestId;
     }
@@ -5052,7 +5051,7 @@ export class ProgrammeService {
       allTransferList.push(transfer);
     }
     const results = await this.programmeTransferRepo.insert(allTransferList);
-    console.log(results);
+    // console.log(results);
     for (const i in allTransferList) {
       allTransferList[i].requestId = results.identifiers[i].requestId;
     }
@@ -6426,6 +6425,7 @@ export class ProgrammeService {
     );
 
     const programme = await this.findById(investment.programmeId);
+    programme.companyId = programme.companyId.map((c) => Number(c));
     console.log('shareFromOwner prev',investment.shareFromOwner)
     const propPerMap = {}
     for (const i in programme.companyId) {
@@ -6443,6 +6443,33 @@ export class ProgrammeService {
       receiver,
       nationalInvestment
     );
+
+    const companyData = await this.companyService.findByCompanyIds({
+      companyIds: programme.companyId,
+    });
+
+    const suspendedCompanies = companyData.filter(
+      (company) => company.state == CompanyState.SUSPENDED,
+    );
+
+    if (receiver.state == CompanyState.SUSPENDED) {
+      const updated = await this.programmeLedger.freezeIssuedCredit(
+        programme.programmeId,
+        programme.creditIssued,
+        '##',
+        suspendedCompanies,
+      );
+
+      if (!updated) {
+        return new BasicResponseDto(
+          HttpStatus.BAD_REQUEST,
+          this.helperService.formatReqMessagesString(
+            'programme.internalErrorCreditFreezing',
+            [programme.programmeId],
+          ),
+        );
+      }
+    }
 
     return transferResult;
   }
