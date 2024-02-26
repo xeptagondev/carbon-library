@@ -1225,12 +1225,9 @@ export class ProgrammeService {
        && (documentAction.status == DocumentStatus.ACCEPTED  || documentAction.status === DocumentStatus.REJECTED)
       ) {
       throw new HttpException(
-        this.helperService.formatReqMessagesString(
-          "This action is unauthorised",
-          [],
-        ),
-        HttpStatus.FORBIDDEN,
-      );
+          this.helperService.formatReqMessagesString('user.userUnAUth', []),
+          HttpStatus.FORBIDDEN,
+        );
     }
     const pr = await this.findById(d.programmeId);
 
@@ -1506,10 +1503,7 @@ export class ProgrammeService {
     if((user.companyRole === CompanyRole.CERTIFIER || user.companyRole === CompanyRole.PROGRAMME_DEVELOPER) && user.role === Role.ViewOnly 
     && (documentDto.type == DocType.METHODOLOGY_DOCUMENT || documentDto.type == DocType.MONITORING_REPORT || documentDto.type == DocType.VERIFICATION_REPORT) ) {
       throw new HttpException(
-        this.helperService.formatReqMessagesString(
-          "This action is unauthorised",
-          [],
-        ),
+        this.helperService.formatReqMessagesString('user.userUnAUth', []),
         HttpStatus.FORBIDDEN,
       );
     }
