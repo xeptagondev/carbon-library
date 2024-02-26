@@ -1219,6 +1219,16 @@ export class ProgrammeService {
         HttpStatus.BAD_REQUEST,
       );
     }
+
+    if(user.companyRole === CompanyRole.CERTIFIER && 
+      (d.type === DocType.METHODOLOGY_DOCUMENT || d.type === DocType.DESIGN_DOCUMENT || d.type === DocType.MONITORING_REPORT || d.type === DocType.VERIFICATION_REPORT )
+       && (documentAction.status == DocumentStatus.ACCEPTED  || documentAction.status === DocumentStatus.REJECTED)
+      ) {
+      throw new HttpException(
+          this.helperService.formatReqMessagesString('user.userUnAUth', []),
+          HttpStatus.FORBIDDEN,
+        );
+    }
     const pr = await this.findById(d.programmeId);
 
     if (user.companyRole === CompanyRole.MINISTRY) {
@@ -1488,6 +1498,15 @@ export class ProgrammeService {
   }
 
   async addDocument(documentDto: ProgrammeDocumentDto, user: User) {
+
+    if((user.companyRole === CompanyRole.CERTIFIER || user.companyRole === CompanyRole.PROGRAMME_DEVELOPER) && user.role === Role.ViewOnly 
+    && (documentDto.type == DocType.METHODOLOGY_DOCUMENT || documentDto.type == DocType.MONITORING_REPORT || documentDto.type == DocType.VERIFICATION_REPORT) ) {
+      throw new HttpException(
+        this.helperService.formatReqMessagesString('user.userUnAUth', []),
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
     let programme;
     if (documentDto.programmeId) {
       programme = await this.findById(documentDto.programmeId);
@@ -2011,6 +2030,14 @@ export class ProgrammeService {
           DocType.DESIGN_DOCUMENT,
           programme.programmeId,
           programmeDto.designDocument,
+        );
+      }else {
+        throw new HttpException(
+          this.helperService.formatReqMessagesString(
+            'programme.programmeDesignDocumentIsRequired',
+            [],
+          ),
+          HttpStatus.BAD_REQUEST,
         );
       }
       let ndcAc: NDCAction = undefined;
