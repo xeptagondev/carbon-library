@@ -472,7 +472,7 @@ export class HelperService {
     }
 
     if(isSubject) 
-      return `${this.configService.get("email.getemailprefix")} Carbon Registry: ${template}`;
+      return `${this.configService.get("email.getemailprefix")} DPG Carbon Registry: ${template}`;
     else 
       return template;
 }
