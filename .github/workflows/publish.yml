@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - 'main'
-      - 'CARBON-Sprint-*'
+      - 'CARBON-DEMO'
       - 'hotfix-*'
     # paths:
     #   - backend/carbon-services-lib/**
