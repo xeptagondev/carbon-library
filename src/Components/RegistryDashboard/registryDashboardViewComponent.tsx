@@ -2189,7 +2189,7 @@ ${total}
     items,
     onClick: handleMenuClick,
   };
-
+ 
   return (
     <div className="dashboard-main-container">
       {isMultipleDashboardsVisible && (
