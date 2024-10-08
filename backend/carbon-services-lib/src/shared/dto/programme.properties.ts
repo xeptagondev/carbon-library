@@ -68,11 +68,9 @@ export class ProgrammeProperties {
   buyerCountryEligibility?: string;
 
   @ApiProperty()
-  @IsArray()
-  @ArrayMinSize(1)
-  @MaxLength(100, { each: true })
-  @IsNotEmpty({ each: true })
-  geographicalLocation: string[];
+  @IsString()
+  @IsNotEmpty()
+  geographicalLocation: string;
 
   @ApiProperty({ enum: GHGs, isArray: true })
   @IsEnum(GHGs, {
