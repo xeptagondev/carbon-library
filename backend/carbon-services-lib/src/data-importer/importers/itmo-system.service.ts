@@ -213,7 +213,7 @@ export class ITMOSystemImporter implements ImporterInterface {
                 implementinguser:undefined,
                 creditUnit: this.configService.get("defaultCreditUnit"),
                 programmeProperties: {
-                  geographicalLocation: [projectDetails.country.name],
+                  geographicalLocation: projectDetails.country.name,
                   greenHouseGasses: [GHGs.CO2],
                 },
                 creditEst: 100,
