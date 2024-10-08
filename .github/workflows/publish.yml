@@ -6,6 +6,7 @@ on:
       - 'main'
       - 'CARBON-Sprint-*'
       - 'hotfix-*'
+      - 'PAN-1'
     # paths:
     #   - backend/carbon-services-lib/**
 jobs:
