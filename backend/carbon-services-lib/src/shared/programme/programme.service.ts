@@ -220,7 +220,7 @@ export class ProgrammeService {
       .map((e) => Number(e))
       .indexOf(Number(transfer.toCompanyId));
 
-    // Cannot be <= 0
+    // Cannot be <= 0 
     if (toCompanyIndex < 0) {
       programme.creditOwnerPercentage[companyIndex] -= transfer.percentage;
       programme.creditOwnerPercentage.push(transfer.percentage);
