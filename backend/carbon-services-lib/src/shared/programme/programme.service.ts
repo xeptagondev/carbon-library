@@ -1981,7 +1981,7 @@ export class ProgrammeService {
     programme.programmeProperties.creditYear = new Date(
       programme.startTime * 1000,
     ).getFullYear();
-    // programme.constantVersion = constant
+    // programme.constantVersion = constants
     //   ? String(constants.version)
     //   : "default";
     programme.currentStage = ProgrammeStage.AWAITING_AUTHORIZATION;
