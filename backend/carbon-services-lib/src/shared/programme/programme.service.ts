@@ -3227,6 +3227,7 @@ export class ProgrammeService {
     if (resp && resp.length > 0) {
       for (const e of resp[0]) {
         // console.log(e);
+        // co
         e.certifier =
           e.certifier.length > 0 && e.certifier[0] === null ? [] : e.certifier;
         if (
