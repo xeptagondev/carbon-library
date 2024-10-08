@@ -67,8 +67,9 @@ export class ProgrammeProperties {
   @IsNotEmpty()
   buyerCountryEligibility?: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   @IsString()
+  @IsOptional()
   @IsNotEmpty()
   geographicalLocation: string;
 

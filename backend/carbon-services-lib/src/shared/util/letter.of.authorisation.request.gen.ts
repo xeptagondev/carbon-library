@@ -12,19 +12,19 @@ export class LetterOfAuthorisationRequestGen {
         private fileHandler: FileHandlerInterface) {
     }
 
-    async generateLetter(programmeId: string, programmeName: string, sectoralScope: string, orgName: string, programmeLocations: any[]) {
+    async generateLetter(programmeId: string, programmeName: string, sectoralScope: string, orgName: string, programmeLocations: any) {
         const filepath = `REQUEST_FOR_LETTER_OF_AUTHORISATION_${programmeId}.pdf`;
         const country = this.configService.get("systemCountryName");
         const date = new Date().toDateString();
         const refNo = this.helperService.generateRandomNumber();
 
-        let programmeLocation;  
-        if (programmeLocations.length > 2) {
-            programmeLocation = programmeLocations.slice(0, programmeLocations.length - 1).join(", ");
-            programmeLocation += " and " + programmeLocations[programmeLocations.length - 1];
-        } else {
-            programmeLocation = programmeLocations.join(" and ");
-        }
+        // let programmeLocation;  
+        // if (programmeLocations.length > 2) {
+        //     programmeLocation = programmeLocations.slice(0, programmeLocations.length - 1).join(", ");
+        //     programmeLocation += " and " + programmeLocations[programmeLocations.length - 1];
+        // } else {
+        //     programmeLocation = programmeLocations.join(" and ");
+        // }
 
         const doc = new PDFDocument();
         const stream = fs.createWriteStream("/tmp/" + filepath);
@@ -49,7 +49,7 @@ export class LetterOfAuthorisationRequestGen {
 
         doc.font("fonts/Inter-Regular.ttf");
 
-        doc.text(`\n\n${orgName} aims to develop ${programmeName} covering ${sectoralScope} in ${programmeLocation} in ${country}. The ITMOs from the activity will be used for meeting NDC targets.`, {
+        doc.text(`\n\n${orgName} aims to develop ${programmeName} covering ${sectoralScope} in ${programmeLocations} in ${country}. The ITMOs from the activity will be used for meeting NDC targets.`, {
             align: "left",
         });
 

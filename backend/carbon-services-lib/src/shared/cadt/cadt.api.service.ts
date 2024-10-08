@@ -291,7 +291,7 @@ export class CadtApiService {
       const cAmount = Number((amount * programme.proponentPercentage[cIndex]/100).toFixed(0))
       const gap = Number((programme.creditEst * programme.proponentPercentage[cIndex]/100).toFixed(0))
       const req = {
-        "projectLocationId": programme.programmeProperties.geographicalLocation?.join(' '),
+        "projectLocationId": programme.programmeProperties.geographicalLocation || '',
         "unitOwner": cName,
         "countryJurisdictionOfOwner": "Nigeria",         // this.configService.get('systemCountryName'),
         "unitBlockStart": String(issuesStart),
@@ -409,7 +409,7 @@ export class CadtApiService {
       } else {
         const req = {
           "warehouseUnitId": bound.unitId,
-          "projectLocationId": programme.programmeProperties.geographicalLocation?.join(' '),
+          "projectLocationId": programme.programmeProperties.geographicalLocation || '',
           "unitOwner": toCompany?.name,
           "countryJurisdictionOfOwner": "Nigeria", //this.configService.get('systemCountryName'),
           "unitBlockStart": String(bound.unitBlockStart),
