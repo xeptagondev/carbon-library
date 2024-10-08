@@ -908,9 +908,9 @@ export const ProgrammeCreationComponent = (props: any) => {
                               >
                                 <DatePicker
                                   size="large"
-                                  disabledDate={(currentDate: any) =>
-                                    currentDate < moment().startOf("day")
-                                  }
+                                  // disabledDate={(currentDate: any) =>
+                                  //   currentDate < moment().startOf("day")
+                                  // }
                                 />
                               </Form.Item>
                               <Form.Item
@@ -1900,6 +1900,35 @@ export const ProgrammeCreationComponent = (props: any) => {
                               <Form.Item
                                 label={t("addProgramme:geographicalLocation")}
                                 name="geographicalLocation"
+                                initialValue={state?.record?.name}
+                                rules={[
+                                  {
+                                    required: true,
+                                    message: "",
+                                  },
+                                  {
+                                    validator: async (rule, value) => {
+                                      if (
+                                        String(value).trim() === "" ||
+                                        String(value).trim() === undefined ||
+                                        value === null ||
+                                        value === undefined
+                                      ) {
+                                        throw new Error(
+                                          `${t("addProgramme:geographicalLocation")} ${t(
+                                            "isRequired"
+                                          )}`
+                                        );
+                                      }
+                                    },
+                                  },
+                                ]}
+                              >
+                                <Input size="large" />
+                              </Form.Item>
+                              {/* <Form.Item
+                                label={t("addProgramme:geographicalLocation")}
+                                name="geographicalLocation"
                                 rules={[
                                   {
                                     required: true,
@@ -1924,7 +1953,7 @@ export const ProgrammeCreationComponent = (props: any) => {
                                     </Select.Option>
                                   ))}
                                 </Select>
-                              </Form.Item>
+                              </Form.Item> */}
                             </div>
                           </Col>
                         </Row>
