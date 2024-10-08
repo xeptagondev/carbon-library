@@ -2483,6 +2483,7 @@ export class ProgrammeService {
     await this.calcCreditNDCAction(ndcAction, program);
     console.log('testing ndcAction', ndcAction);
     this.calcAddNDCFields(ndcAction, program);
+    // do something
 
     if (
       ndcAction.action == NDCActionType.Enablement &&
