@@ -94,25 +94,29 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
   //changing value to N2O. Previously it was N20(N-Two-Zero)
   const ghgEmissionsGas = ["CO2", "CH4", "N2O", "HFCs", "PFCs", "SF6"];
 
+  const getKeyFromValue = (value: string) => {
+    const key = Object.keys(SectoralScope).find(
+      (key) => SectoralScope[key as keyof typeof SectoralScope] === value
+    );
+    return key || "";
+  };
+
   useEffect(() => {
     if (programmeDetails) {
       setSector(programmeDetails?.sector);
+      const key = getKeyFromValue(programmeDetails?.sectoralScope);
       setSubSector(programmeDetails?.sectoralScope);
       console.log(programmeDetails, "Programme Details");
-      console.log("Ndc Actions ------- > ", ndcActionDetails)
+      console.log("Ndc Actions ------- > ", ndcActionDetails);
       if (!ndcActionDetails) {
         console.log(
           "Programme Details later changes : ->>>>>>>>>>>>>>>>>>>>>> ",
-          sectorMitigationTypesListMapped[sector]
-            ? sectorMitigationTypesListMapped[sector]?.find(
-                (item: any) => item.label === sector
+          sectorMitigationTypesListMapped[programmeDetails?.sector]
+            ? sectorMitigationTypesListMapped[programmeDetails?.sector]?.find(
+                (item: any) => item.label === programmeDetails?.sector
               )?.label ?? ""
             : "",
-          mitigationSubTypesListMapped[subSector]
-            ? mitigationSubTypesListMapped[subSector]?.find(
-                (item: any) => item.label === subSector
-              )?.label
-            : ""
+          key
         );
         console.log("Other detail 115 ------------- > ", programmeDetails);
         form.setFieldsValue({
@@ -121,11 +125,7 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                 (item: any) => item.label === sector
               )?.label ?? ""
             : "",
-          mitigationSubType: mitigationSubTypesListMapped[subSector]
-            ? mitigationSubTypesListMapped[subSector]?.find(
-                (item: any) => item.label === subSector
-              )?.label
-            : "",
+          mitigationSubType: key,
         });
       }
     }
