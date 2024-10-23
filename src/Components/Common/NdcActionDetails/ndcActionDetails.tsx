@@ -98,6 +98,8 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
     if (programmeDetails) {
       setSector(programmeDetails?.sector);
       setSubSector(programmeDetails?.sectoralScope);
+      console.log(programmeDetails, "Programme Details");
+      console.log("Ndc Actions ------- > ", ndcActionDetails)
       if (!ndcActionDetails) {
         console.log(
           "Programme Details later changes : ->>>>>>>>>>>>>>>>>>>>>> ",
