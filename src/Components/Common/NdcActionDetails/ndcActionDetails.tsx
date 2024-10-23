@@ -110,7 +110,7 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
       const valueSectoralScope = mitigationSubTypeList
         ? mitigationSubTypeList?.find((item: any) => item.label === key)
           ? mitigationSubTypeList?.find((item: any) => item.label === key)
-              ?.label
+              ?.value
           : ""
         : "";
       setSubSector(valueSectoralScope);
