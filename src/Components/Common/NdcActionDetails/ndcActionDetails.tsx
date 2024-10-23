@@ -71,6 +71,7 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
   const [mitigationType, setmitigationType] = useState();
   const [mitigationSubType, setMitigationSubType] = useState("");
   const [sector, setSector] = useState<any>("");
+  const [subSector, setSubSector] = useState<any>("");
   const [ndcActionTypeListFiltered, setNdcActionTypeListFiltered] =
     useState<any[]>(ndcActionTypeList);
   const [checkedOptionsGhgReduced, setCheckedOptionsGhgReduced] = useState<
@@ -96,6 +97,7 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
   useEffect(() => {
     if (programmeDetails) {
       setSector(programmeDetails?.sector);
+      setSubSector(programmeDetails?.sectoralScope);
     }
   }, [programmeDetails]);
 
@@ -570,6 +572,9 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                           ? mitigationTypeList
                           : sectorMitigationTypesListMapped[sector]
                       }
+                      defaultValue={
+                        sectorMitigationTypesListMapped[sector].find((item: any) => item.label === sector)?.label ?? ""
+                      }
                     ></Select>
                   </Form.Item>
                 </Col>
@@ -597,7 +602,11 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                             borderRadius: "4px",
                           }}
                           options={mitigationSubTypesListMapped[mitigationType]}
-                          value={mitigationSubType}
+                          value={
+                            (mitigationSubType || 
+                            mitigationSubTypesListMapped[subSector]?.find((item: any) => item.label === subSector)?.label) ?? ""
+                          }
+                          defaultValue={mitigationSubTypesListMapped[subSector]?.find((item: any) => item.label === subSector)?.label ?? ""}
                         ></Select>
                       </Form.Item>
                     </Col>)}
