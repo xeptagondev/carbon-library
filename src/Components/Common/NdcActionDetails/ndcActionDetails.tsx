@@ -41,6 +41,7 @@ import {
   mitigationSubTypesListMapped,
   MitigationSubTypes,
   methodologyOptions,
+  SectoralScope,
 } from "../../../Definitions";
 import { InfoCircle } from "react-bootstrap-icons";
 import { enablementTypesAndValues } from "../../../Definitions/Enums/enablementTypes.enum";
