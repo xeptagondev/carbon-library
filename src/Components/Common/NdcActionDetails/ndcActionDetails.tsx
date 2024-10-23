@@ -42,6 +42,7 @@ import {
   MitigationSubTypes,
   methodologyOptions,
   SectoralScope,
+  mitigationSubTypeList,
 } from "../../../Definitions";
 import { InfoCircle } from "react-bootstrap-icons";
 import { enablementTypesAndValues } from "../../../Definitions/Enums/enablementTypes.enum";
@@ -106,7 +107,20 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
     if (programmeDetails) {
       setSector(programmeDetails?.sector);
       const key = getKeyFromValue(programmeDetails?.sectoralScope);
-      setSubSector(key);
+      const valueSectoralScope = mitigationSubTypeList
+        ? mitigationSubTypeList?.find((item: any) => item.label === key)
+          ? mitigationSubTypeList?.find((item: any) => item.label === key)
+              ?.label
+          : ""
+        : "";
+      setSubSector(valueSectoralScope);
+      mitigationSubTypesListMapped[
+        sectorMitigationTypesListMapped[programmeDetails?.sector]
+          ? sectorMitigationTypesListMapped[programmeDetails?.sector]?.find(
+              (item: any) => item.label === programmeDetails?.sector
+            )?.label ?? ""
+          : ""
+      ];
       console.log(programmeDetails, "Programme Details");
       console.log("Ndc Actions ------- > ", ndcActionDetails);
       if (!ndcActionDetails) {
