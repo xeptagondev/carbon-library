@@ -114,6 +114,7 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
           : ""
         : "";
       setSubSector(valueSectoralScope);
+      console.log("Sub Sector --- > ", mitigationSubTypeList?.find((item: any) => item.label === key), key, valueSectoralScope)
       mitigationSubTypesListMapped[
         sectorMitigationTypesListMapped[programmeDetails?.sector]
           ? sectorMitigationTypesListMapped[programmeDetails?.sector]?.find(
