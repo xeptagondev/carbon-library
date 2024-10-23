@@ -583,8 +583,8 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                       sectorMitigationTypesListMapped[sector]
                         ? sectorMitigationTypesListMapped[sector]?.find(
                             (item: any) => item.label === sector
-                          )?.label ?? ""
-                        : ""
+                          ) ?? { value: "", label: "" }
+                        : { value: "", label: "" }
                       }
                     ></Select>
                   </Form.Item>
@@ -619,9 +619,11 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                           ((mitigationSubTypesListMapped[subSector]
                             ? mitigationSubTypesListMapped[subSector]?.find(
                                 (item: any) => item.label === subSector
-                              )?.label
-                            : "") ??
-                            "")
+                              )
+                            : { value: "", label: "" }) ?? {
+                            value: "",
+                            label: "",
+                          })
                           }
                         // defaultValue={
                         //   mitigationSubTypesListMapped[subSector]
