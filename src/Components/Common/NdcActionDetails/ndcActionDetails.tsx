@@ -548,6 +548,13 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                 <Col>
                   <Form.Item
                     label={t("ndcAction:mitigationType")}
+                  initialValue={
+                    sectorMitigationTypesListMapped[sector]
+                      ? sectorMitigationTypesListMapped[sector]?.find(
+                          (item: any) => item.label === sector
+                        )?.label ?? ""
+                      : ""
+                  }
                     name="mitigationType"
                     rules={[
                       {
@@ -579,13 +586,13 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                     //       )?.label ?? ""
                     //     : ""
                     // }
-                    value={
-                      sectorMitigationTypesListMapped[sector]
-                        ? sectorMitigationTypesListMapped[sector]?.find(
-                            (item: any) => item.label === sector
-                          ) ?? { value: "", label: "" }
-                        : { value: "", label: "" }
-                      }
+                    // value={
+                    //   sectorMitigationTypesListMapped[sector]
+                    //     ? sectorMitigationTypesListMapped[sector]?.find(
+                    //         (item: any) => item.label === sector
+                    //       ) ?? { value: "", label: "" }
+                    //     : { value: "", label: "" }
+                    // }
                     ></Select>
                   </Form.Item>
                 </Col>
@@ -597,6 +604,13 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                       <Form.Item
                         label={t("ndcAction:mitigationSubType")}
                         name="mitigationSubType"
+                      initialValue={
+                        mitigationSubTypesListMapped[subSector]
+                          ? mitigationSubTypesListMapped[subSector]?.find(
+                              (item: any) => item.label === subSector
+                            )?.label
+                          : ""
+                      }
                         rules={[
                           {
                             required: true,
@@ -614,17 +628,17 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                             borderRadius: "4px",
                           }}
                           options={mitigationSubTypesListMapped[mitigationType]}
-                          value={
-                          mitigationSubType ||
-                          ((mitigationSubTypesListMapped[subSector]
-                            ? mitigationSubTypesListMapped[subSector]?.find(
-                                (item: any) => item.label === subSector
-                              )
-                            : { value: "", label: "" }) ?? {
-                            value: "",
-                            label: "",
-                          })
-                          }
+                        // value={
+                        //   mitigationSubType ||
+                        //   ((mitigationSubTypesListMapped[subSector]
+                        //     ? mitigationSubTypesListMapped[subSector]?.find(
+                        //         (item: any) => item.label === subSector
+                        //       )
+                        //     : { value: "", label: "" }) ?? {
+                        //     value: "",
+                        //     label: "",
+                        //   })
+                        // }
                         // defaultValue={
                         //   mitigationSubTypesListMapped[subSector]
                         //     ? mitigationSubTypesListMapped[subSector]?.find(
