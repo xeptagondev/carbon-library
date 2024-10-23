@@ -572,7 +572,14 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                           ? mitigationTypeList
                           : sectorMitigationTypesListMapped[sector]
                       }
-                      defaultValue={
+                    // defaultValue={
+                    //   sectorMitigationTypesListMapped[sector]
+                    //     ? sectorMitigationTypesListMapped[sector]?.find(
+                    //         (item: any) => item.label === sector
+                    //       )?.label ?? ""
+                    //     : ""
+                    // }
+                    value={
                       sectorMitigationTypesListMapped[sector]
                         ? sectorMitigationTypesListMapped[sector]?.find(
                             (item: any) => item.label === sector
@@ -616,13 +623,13 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                             : "") ??
                             "")
                           }
-                        defaultValue={
-                          mitigationSubTypesListMapped[subSector]
-                            ? mitigationSubTypesListMapped[subSector]?.find(
-                                (item: any) => item.label === subSector
-                              )?.label
-                            : ""
-                        }
+                        // defaultValue={
+                        //   mitigationSubTypesListMapped[subSector]
+                        //     ? mitigationSubTypesListMapped[subSector]?.find(
+                        //         (item: any) => item.label === subSector
+                        //       )?.label
+                        //     : ""
+                        // }
                         ></Select>
                       </Form.Item>
                   </Col>
