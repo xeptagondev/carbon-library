@@ -148,7 +148,7 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                 (item: any) => item.label === programmeDetails?.sector
               )?.label ?? ""
             : "",
-          mitigationSubType: key,
+          mitigationSubType: valueSectoralScope,
         });
       }
     }
