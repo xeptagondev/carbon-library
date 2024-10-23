@@ -98,6 +98,34 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
     if (programmeDetails) {
       setSector(programmeDetails?.sector);
       setSubSector(programmeDetails?.sectoralScope);
+      if (!ndcActionDetails) {
+        console.log(
+          "Programme Details later changes : ->>>>>>>>>>>>>>>>>>>>>> ",
+          sectorMitigationTypesListMapped[sector]
+            ? sectorMitigationTypesListMapped[sector]?.find(
+                (item: any) => item.label === sector
+              )?.label ?? ""
+            : "",
+          mitigationSubTypesListMapped[subSector]
+            ? mitigationSubTypesListMapped[subSector]?.find(
+                (item: any) => item.label === subSector
+              )?.label
+            : ""
+        );
+        console.log("Other detail 115 ------------- > ", programmeDetails);
+        form.setFieldsValue({
+          mitigationType: sectorMitigationTypesListMapped[sector]
+            ? sectorMitigationTypesListMapped[sector]?.find(
+                (item: any) => item.label === sector
+              )?.label ?? ""
+            : "",
+          mitigationSubType: mitigationSubTypesListMapped[subSector]
+            ? mitigationSubTypesListMapped[subSector]?.find(
+                (item: any) => item.label === subSector
+              )?.label
+            : "",
+        });
+      }
     }
   }, [programmeDetails]);
 
@@ -548,13 +576,13 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                 <Col>
                   <Form.Item
                     label={t("ndcAction:mitigationType")}
-                  initialValue={
-                    sectorMitigationTypesListMapped[sector]
-                      ? sectorMitigationTypesListMapped[sector]?.find(
-                          (item: any) => item.label === sector
-                        )?.label ?? ""
-                      : ""
-                  }
+                  // initialValue={
+                  //   sectorMitigationTypesListMapped[sector]
+                  //     ? sectorMitigationTypesListMapped[sector]?.find(
+                  //         (item: any) => item.label === sector
+                  //       )?.label ?? ""
+                  //     : ""
+                  // }
                     name="mitigationType"
                     rules={[
                       {
@@ -604,13 +632,13 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                       <Form.Item
                         label={t("ndcAction:mitigationSubType")}
                         name="mitigationSubType"
-                      initialValue={
-                        mitigationSubTypesListMapped[subSector]
-                          ? mitigationSubTypesListMapped[subSector]?.find(
-                              (item: any) => item.label === subSector
-                            )?.label
-                          : ""
-                      }
+                      // initialValue={
+                      //   mitigationSubTypesListMapped[subSector]
+                      //     ? mitigationSubTypesListMapped[subSector]?.find(
+                      //         (item: any) => item.label === subSector
+                      //       )?.label
+                      //     : ""
+                      // }
                         rules={[
                           {
                             required: true,
