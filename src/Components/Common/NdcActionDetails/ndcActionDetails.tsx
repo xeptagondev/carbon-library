@@ -573,14 +573,19 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                           : sectorMitigationTypesListMapped[sector]
                       }
                       defaultValue={
-                        sectorMitigationTypesListMapped[sector].find((item: any) => item.label === sector)?.label ?? ""
+                      sectorMitigationTypesListMapped[sector]
+                        ? sectorMitigationTypesListMapped[sector]?.find(
+                            (item: any) => item.label === sector
+                          )?.label ?? ""
+                        : ""
                       }
                     ></Select>
                   </Form.Item>
                 </Col>
                 {(ndcActionType === NdcActionTypes.Mitigation ||
                   ndcActionType === NdcActionTypes.CrossCutting) &&
-                  mitigationType && mitigationSubTypesListMapped[mitigationType] && (
+                mitigationType &&
+                mitigationSubTypesListMapped[mitigationType] && (
                     <Col style={{ marginLeft: "38px" }}>
                       <Form.Item
                         label={t("ndcAction:mitigationSubType")}
@@ -603,13 +608,25 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                           }}
                           options={mitigationSubTypesListMapped[mitigationType]}
                           value={
-                            (mitigationSubType || 
-                            mitigationSubTypesListMapped[subSector]?.find((item: any) => item.label === subSector)?.label) ?? ""
+                          mitigationSubType ||
+                          ((mitigationSubTypesListMapped[subSector]
+                            ? mitigationSubTypesListMapped[subSector]?.find(
+                                (item: any) => item.label === subSector
+                              )?.label
+                            : "") ??
+                            "")
                           }
-                          defaultValue={mitigationSubTypesListMapped[subSector]?.find((item: any) => item.label === subSector)?.label ?? ""}
+                        defaultValue={
+                          mitigationSubTypesListMapped[subSector]
+                            ? mitigationSubTypesListMapped[subSector]?.find(
+                                (item: any) => item.label === subSector
+                              )?.label
+                            : ""
+                        }
                         ></Select>
                       </Form.Item>
-                    </Col>)}
+                  </Col>
+                )}
               </Row>
               <Row justify="start" align="middle">
                 <Col span={20}>
