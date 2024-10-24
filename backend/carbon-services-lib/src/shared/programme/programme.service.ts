@@ -2373,7 +2373,7 @@ export class ProgrammeService {
     if (ndcAction.action === NDCActionType.Mitigation) {
       if (
         sectorMitigationTypesListMapped[programmeSectorFromDetails] &&
-        !sectorMitigationTypesListMapped[programmeSectorFromDetails].includes(ndcAction.typeOfMitigation)
+        !sectorMitigationTypesListMapped[programmeSectorFromDetails]?.includes(ndcAction?.typeOfMitigation)
       ) {
         throw new HttpException(
           this.helperService.formatReqMessagesString(
@@ -2385,9 +2385,9 @@ export class ProgrammeService {
       }
 
       if (
-        ndcAction.subTypeOfMitigation && 
-        mitigationSubTypesListMapped[ndcAction.typeOfMitigation] &&
-        !mitigationSubTypesListMapped[ndcAction.typeOfMitigation].includes(ndcAction.subTypeOfMitigation)
+        ndcAction?.subTypeOfMitigation && 
+        mitigationSubTypesListMapped[ndcAction?.typeOfMitigation] &&
+        !mitigationSubTypesListMapped[ndcAction?.typeOfMitigation]?.includes(ndcAction?.subTypeOfMitigation)
       ) {
         throw new HttpException(
           this.helperService.formatReqMessagesString(
@@ -2399,9 +2399,9 @@ export class ProgrammeService {
       }
 
       if (
-        ndcAction.subTypeOfMitigation &&
-        mitigationSubTypesListMapped[ndcAction.typeOfMitigation] &&
-        !mitigationSubTypesListMapped[ndcAction.typeOfMitigation].includes(ndcAction.subTypeOfMitigation)
+        ndcAction?.subTypeOfMitigation &&
+        mitigationSubTypesListMapped[ndcAction?.typeOfMitigation] &&
+        !mitigationSubTypesListMapped[ndcAction?.typeOfMitigation]?.includes(ndcAction?.subTypeOfMitigation)
       ) {
         throw new HttpException(
           this.helperService.formatReqMessagesString("programme.wrongSubMitigationMapping", []),
