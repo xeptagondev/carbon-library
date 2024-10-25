@@ -762,7 +762,6 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
             {!ndcActionDetails && (
               <Row justify="start" align="middle">
                 <Form.Item
-                  wrapperCol={{ span: 13 }}
                   label={"Start Date"}
                   name="startTime"
                   rules={[

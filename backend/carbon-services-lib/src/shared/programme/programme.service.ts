@@ -1017,7 +1017,7 @@ export class ProgrammeService {
     ndcAction.programmeId = programme.programmeId;
     ndcAction.externalId = programme.externalId;
     ndcAction.txTime = new Date().getTime();
-    ndcAction.createdTime = ndcAction.txTime;
+    // ndcAction.createdTime = ndcAction.txTime;
     ndcAction.sector = programme.sector;
     ndcAction.status = NDCStatus.PENDING;
   }
@@ -2432,6 +2432,7 @@ export class ProgrammeService {
     }
 
     ndcAction.coBenefitsProperties = ndcActionDto.coBenefitsProperties;
+    ndcAction.createdTime = ndcActionDto.startTime * 1000;
     if(ndcAction.ndcFinancing?.userEstimatedCredits){
       ndcAction.ndcFinancing.userEstimatedCredits=this.helperService.halfUpToPrecision(ndcAction.ndcFinancing.userEstimatedCredits)
     }
