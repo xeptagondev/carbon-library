@@ -112,7 +112,7 @@ export class NDCActionDto {
   @IsOptional()
   @IsPositive()
   @IsInt()
-  startTime: number;
+  createdTime: number;
 
 
   @ApiPropertyOptional()
