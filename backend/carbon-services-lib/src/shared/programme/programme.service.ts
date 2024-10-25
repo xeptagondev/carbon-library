@@ -2432,7 +2432,7 @@ export class ProgrammeService {
     }
 
     ndcAction.coBenefitsProperties = ndcActionDto.coBenefitsProperties;
-    ndcAction.createdTime = ndcActionDto.startTime * 1000;
+    ndcAction.createdTime = ndcActionDto.createdTime * 1000;
     if(ndcAction.ndcFinancing?.userEstimatedCredits){
       ndcAction.ndcFinancing.userEstimatedCredits=this.helperService.halfUpToPrecision(ndcAction.ndcFinancing.userEstimatedCredits)
     }

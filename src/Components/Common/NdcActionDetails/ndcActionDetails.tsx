@@ -397,7 +397,7 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
       ndcActionDetailObj.typeOfMitigation = ndcActionFormvalues.mitigationType;
       ndcActionDetailObj.subTypeOfMitigation =
         ndcActionFormvalues.mitigationSubType;
-      ndcActionDetailObj.startTime = moment(ndcActionFormvalues?.startTime)
+      ndcActionDetailObj.createdTime = moment(ndcActionFormvalues?.createdTime)
         .startOf("day")
         .unix();
       if (
@@ -763,7 +763,7 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
               <Row justify="start" align="middle">
                 <Form.Item
                   label={"Start Date"}
-                  name="startTime"
+                  name="createdTime"
                   rules={[
                     {
                       required: true,
