@@ -2,6 +2,7 @@ import {
   Button,
   Checkbox,
   Col,
+  DatePicker,
   Form,
   Input,
   InputNumber,
@@ -47,6 +48,7 @@ import {
 import { InfoCircle } from "react-bootstrap-icons";
 import { enablementTypesAndValues } from "../../../Definitions/Enums/enablementTypes.enum";
 import { isValidateFileType } from "../../../Utils/DocumentValidator";
+import moment from "moment";
 
 export interface NdcActionDetailsProps {
   isBackBtnVisible: boolean;
@@ -395,6 +397,9 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
       ndcActionDetailObj.typeOfMitigation = ndcActionFormvalues.mitigationType;
       ndcActionDetailObj.subTypeOfMitigation =
         ndcActionFormvalues.mitigationSubType;
+      ndcActionDetailObj.startTime = moment(ndcActionFormvalues?.startTime)
+        .startOf("day")
+        .unix();
       if (
         ndcActionFormvalues.mitigationType === MitigationTypes.AGRICULTURE &&
         ndcActionFormvalues.mitigationSubType === MitigationSubTypes.RICE_CROPS
@@ -754,6 +759,40 @@ const NdcActionDetails = (props: NdcActionDetailsProps) => {
                   </Col>
                 )}
             </Row>
+            {!ndcActionDetails && (
+              <Row justify="start" align="middle">
+                <Form.Item
+                  wrapperCol={{ span: 13 }}
+                  label={"Start Date"}
+                  name="startTime"
+                  rules={[
+                    {
+                      required: true,
+                      message: "",
+                    },
+                    {
+                      validator: async (rule, value) => {
+                        if (
+                          String(value).trim() === "" ||
+                          String(value).trim() === undefined ||
+                          value === null ||
+                          value === undefined
+                        ) {
+                          throw new Error(`Start Date ${t("isRequired")}`);
+                        }
+                      },
+                    },
+                  ]}
+                >
+                  <DatePicker
+                    size="large"
+                    // disabledDate={(currentDate: any) =>
+                    //   currentDate < moment().startOf("day")
+                    // }
+                  />
+                </Form.Item>
+              </Row>
+            )}
             <Row justify="start" align="middle">
               <Col span={20}>
                 <Form.Item
